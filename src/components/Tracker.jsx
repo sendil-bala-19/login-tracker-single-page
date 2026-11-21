@@ -2,49 +2,50 @@ import React, { useState, useEffect } from "react";
 import ViewTrackers from "./ViewTrackers";
 
 function Tracker() {
-  const [currentTime, setCurrentTime] = useState(null);
-  const [tableData, setTableData] = useState(null);
-
-  const trackHandler = (e) => {
-    const now = new Date();
-    const timeString = now.toLocaleString();
-
-    console.log(timeString);
-    setCurrentTime(timeString);
-    console.log("trackHandler", e);
-
-    // Get the current tracker object, parse it, update it, and save it back
-    const existingData = JSON.parse(localStorage.getItem("tracker")) || {};
-
-    // Add the new timestamp (e.g., storing a list of history clicks)
-    if (!existingData.history) {
-      existingData.history = [];
-    }
-    existingData.history.push(timeString);
-    existingData.lastClicked = timeString;
-
-    setTableData(existingData);
-    localStorage.setItem("tracker", JSON.stringify(existingData));
-  };
+  const [tableData, setTableData] = useState({});
 
   useEffect(() => {
-    // Fixed: Both check and set use the "tracker" key now
-    if (localStorage.getItem("tracker") === null) {
-      localStorage.setItem(
-        "tracker",
-        JSON.stringify({ history: [], lastClicked: null }),
-      );
-      setTableData(localStorage.getItem("tracker"));
+    const savedData = JSON.parse(localStorage.getItem("trackers")) || {};
+    setTableData(savedData);
+  }, []);
+
+  const trackHandler = (actionType) => {
+    const now = new Date();
+    const dateKey = now.toLocaleDateString();
+    const timeString = now.toLocaleTimeString();
+
+    const existingData = JSON.parse(localStorage.getItem("trackers")) || {};
+
+    if (!existingData[dateKey]) {
+      existingData[dateKey] = {
+        login: null,
+        logout: null,
+        loginTimestamp: null,
+        logoutTimestamp: null,
+      };
     }
-    console.log("localStorage initial state:", localStorage.getItem("tracker"));
-  }, [currentTime]);
+
+    // Save both the display string and raw timestamp in milliseconds
+    existingData[dateKey][actionType] = timeString;
+    existingData[dateKey][`${actionType}Timestamp`] = now.getTime();
+
+    setTableData(existingData);
+    localStorage.setItem("trackers", JSON.stringify(existingData));
+  };
 
   return (
     <div>
-      <div>Tracker</div>
-      <div>{currentTime}</div>
-      <button onClick={trackHandler}>Log IN</button>
-      <button onClick={trackHandler}>Log OUT</button>
+      <div className="btn-wrapper">
+        <button className="custom-button" onClick={() => trackHandler("login")}>
+          Log IN
+        </button>
+        <button
+          className="custom-button"
+          onClick={() => trackHandler("logout")}
+        >
+          Log OUT
+        </button>
+      </div>
       <ViewTrackers tableData={tableData} />
     </div>
   );
