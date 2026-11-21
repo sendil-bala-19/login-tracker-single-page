@@ -18,15 +18,11 @@ function ViewTrackers({ tableData }) {
   };
 
   if (entries.length === 0) {
-    return <p>No tracking logs recorded yet.</p>;
+    return <p className="empty-message">No tracking logs recorded yet.</p>;
   }
 
   return (
-    <table
-      border="1"
-      cellPadding="8"
-      style={{ borderCollapse: "collapse", width: "100%", marginTop: "20px" }}
-    >
+    <table className="tracker-table">
       <thead>
         <tr>
           <th>Date</th>
