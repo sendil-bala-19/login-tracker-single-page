@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "./CurrentTime.scss";
 
 function CurrentTime() {
   const [time, setTime] = useState(new Date());
@@ -14,8 +15,11 @@ function CurrentTime() {
   }, []);
 
   return (
-    <div>
-      <h2>Current Time: {time.toLocaleTimeString()}</h2>
+    <div className="current-time">
+      <p className="current-time-label">Current time</p>
+      <time className="current-time-value" dateTime={time.toISOString()}>
+        {time.toLocaleTimeString()}
+      </time>
     </div>
   );
 }
