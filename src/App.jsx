@@ -1,15 +1,21 @@
 import React from "react";
-import "./App.css";
+import "./App.scss";
 import Tracker from "./components/Tracker";
 import CurrentTime from "./components/CurrentTime";
 
 function App() {
   return (
-    <div>
-      <h1>Logic Tracker</h1>
+    <main className="app-shell">
+      <header className="app-header">
+        <p className="app-eyebrow">Daily attendance</p>
+        <h1>Login Tracker</h1>
+        <p className="app-description">
+          Keep a simple record of your login and logout times.
+        </p>
+      </header>
       <CurrentTime />
       <Tracker />
-    </div>
+    </main>
   );
 }
 

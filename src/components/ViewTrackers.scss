@@ -1,0 +1,122 @@
+.tracker-history {
+  min-width: 0;
+
+  .tracker-tabs {
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    gap: 0.3rem;
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+    border-radius: 0.75rem;
+    background: #f0f4fa;
+  }
+
+  .tracker-tab {
+    min-height: 2.6rem;
+    padding: 0.6rem 1rem;
+    border: 0;
+    border-radius: 0.55rem;
+    background: transparent;
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 650;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 160ms ease,
+      box-shadow 160ms ease,
+      color 160ms ease;
+
+    &:hover {
+      color: #284f9e;
+    }
+
+    &[aria-selected="true"] {
+      background: #fff;
+      color: var(--color-accent);
+      box-shadow: 0 2px 6px rgba(35, 57, 91, 0.1);
+    }
+  }
+
+  .tracker-panel {
+    min-width: 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+}
+
+.table-scroll {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+}
+
+.tracker-table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+  color: #334258;
+  font-size: 0.9rem;
+  text-align: left;
+
+  th,
+  td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    white-space: nowrap;
+  }
+
+  th {
+    background: #f7f9fc;
+    color: #5a687d;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  tbody tr {
+    &:nth-child(even) {
+      background: #fbfcfe;
+    }
+
+    &:last-child td {
+      border-bottom: 0;
+    }
+
+    &:hover {
+      background: #f5f8fe;
+    }
+  }
+}
+
+.empty-message {
+  margin: 0;
+  padding: 1.5rem;
+  border: 1px dashed #cbd5e1;
+  border-radius: 0.75rem;
+  background: #fbfcfe;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+@media (max-width: 480px) {
+  .tracker-history {
+    .tracker-tabs {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .tracker-tab {
+      width: 100%;
+      padding-inline: 0.5rem;
+    }
+  }
+}
